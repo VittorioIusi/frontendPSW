@@ -7,6 +7,8 @@ import 'package:fakestore/model/objects/User.dart';
 import 'package:fakestore/model/support/Constants.dart';
 import 'package:fakestore/model/support/LogInResult.dart';
 
+import 'objects/UserReq.dart';
+
 
 class Model {
   static Model sharedInstance = Model();
@@ -23,7 +25,8 @@ class Model {
       params["client_secret"] = Constants.CLIENT_SECRET;
       params["username"] = email;
       params["password"] = password;
-      String result = await _restManager.makePostRequest(Constants.ADDRESS_AUTHENTICATION_SERVER, Constants.REQUEST_LOGIN, params, type: TypeHeader.urlencoded);
+      String result = await _restManager.makePostRequest(Constants.ADDRESS_AUTHENTICATION_SERVER, Constants.REQUEST_LOGIN, params, type:TypeHeader.urlencoded);
+      //String result = await _restManager.makeGetRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_TOKEN,params,);
       _authenticationData = AuthenticationData.fromJson(jsonDecode(result));
       if ( _authenticationData!.hasError() ) {
         if ( _authenticationData!.error == "Invalid user credentials" ) {
@@ -82,6 +85,7 @@ class Model {
     }
   }
 
+
   Future<List<Product>?>? searchProduct(String name) async {
     Map<String, String> params = Map();
     params["name"] = name;
@@ -93,7 +97,10 @@ class Model {
     }
   }
 
-  Future<User?>? addUser(User user) async {
+
+
+  Future<User?>? addUser(UserReq user) async {
+    print("aggiungo");
     try {
       String rawResult = await _restManager.makePostRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_ADD_USER, user);
       if ( rawResult.contains(Constants.RESPONSE_ERROR_MAIL_USER_ALREADY_EXISTS) ) {

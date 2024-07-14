@@ -6,6 +6,8 @@ import 'package:fakestore/model/objects/User.dart';
 import 'package:fakestore/model/support/extensions/StringCapitalization.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/objects/UserReq.dart';
+
 
 class UserRegistration extends StatefulWidget {
   UserRegistration() : super();
@@ -19,11 +21,13 @@ class _UserRegistrationState extends State<UserRegistration> {
   bool _adding = false;
   User? _justAddedUser;
 
+
   TextEditingController _firstNameFiledController = TextEditingController();
   TextEditingController _lastNameFiledController = TextEditingController();
   TextEditingController _telephoneNumberFiledController = TextEditingController();
   TextEditingController _emailFiledController = TextEditingController();
   TextEditingController _addressFiledController = TextEditingController();
+  TextEditingController _controllerPassword = TextEditingController();
 
 
   @override
@@ -63,8 +67,9 @@ class _UserRegistrationState extends State<UserRegistration> {
                     controller: _emailFiledController,
                   ),
                   InputField(
-                    labelText: AppLocalizations.of(context)!.translate("address").capitalize,
-                    controller: _addressFiledController,
+                    labelText: AppLocalizations.of(context)!.translate("password").capitalize,
+                    controller: _controllerPassword,
+                    isPassword: true,
                   ),
                   CircularIconButton(
                     icon: Icons.person_rounded,
@@ -99,19 +104,37 @@ class _UserRegistrationState extends State<UserRegistration> {
       _justAddedUser = null;
     });
     User user = User(
+      userName: _emailFiledController.text,
       firstName: _firstNameFiledController.text,
       lastName: _lastNameFiledController.text,
-      telephoneNumber: _telephoneNumberFiledController.text,
+      telephone: _telephoneNumberFiledController.text,
       email: _emailFiledController.text,
-      address: _addressFiledController.text,
     );
-    Model.sharedInstance.addUser(user)?.then((result) {
+    if (_firstNameFiledController.text == "" ||
+        _lastNameFiledController.text == "" ||
+        _telephoneNumberFiledController.text == "" ||
+        _emailFiledController.text == "" || _controllerPassword.text == "") {
+      final snackBar = SnackBar(
+        content: Text("Tutti campi obbligatori"),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       setState(() {
         _adding = false;
-        _justAddedUser = result;
       });
-    });
+    }
+    else {
+      UserReq userReq = UserReq(
+          user: user,
+          password: _controllerPassword.text
+      );
+      Model.sharedInstance.addUser(userReq)?.then((result) {
+        setState(() {
+          _adding = false;
+          _justAddedUser = result;
+        });
+      });
+    }
   }
-
 
 }

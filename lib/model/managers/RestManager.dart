@@ -17,7 +17,7 @@ class RestManager {
 
 
   Future<String> _makeRequest(String serverAddress, String servicePath, String method, TypeHeader type, {Map<String, String>? value, dynamic body}) async {
-    Uri uri = Uri.https(serverAddress, servicePath, value);
+    Uri uri = Uri.http(serverAddress, servicePath, value);
     bool errorOccurred = false;
     while ( true ) {
       try {
@@ -39,6 +39,12 @@ class RestManager {
         if ( token != null ) {
           headers[HttpHeaders.authorizationHeader] = 'bearer $token';
         }
+
+        // logging request details
+        print("Sending $method request to $uri");
+        print("Headers: $headers");
+        print("Body: $formattedBody");
+
         // making request
         switch ( method ) {
           case "post":

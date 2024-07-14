@@ -70,6 +70,7 @@ class _LogInState extends State<LogIn> {
                         return;
                       }
                       LogInResult result = await Model.sharedInstance.logIn(email, password);
+                      //print("sto stampando dalla classe LogIn"+email);
                       setState(() {
                         _isLoading = false;
                       });
@@ -92,7 +93,7 @@ class _LogInState extends State<LogIn> {
                         );
                       }
                       else if ( result == LogInResult.error_not_fully_setupped ) {
-                        await launch(Constants.LINK_FIRST_SETUP_PASSWORD);
+                        //await launch(Constants.LINK_FIRST_SETUP_PASSWORD);
                       }
                       else {
                         showDialog(

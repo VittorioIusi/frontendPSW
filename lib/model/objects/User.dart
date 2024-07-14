@@ -1,35 +1,32 @@
 class User {
   int? id;
-  String? code;
+  String userName;
   String firstName;
   String lastName;
-  String telephoneNumber;
+  String telephone;
   String email;
-  String address;
 
 
-  User({this.id, this.code, required this.firstName, required this.lastName, required this.telephoneNumber, required this.email, required this.address});
+  User({this.id, required this.userName,required this.firstName, required this.lastName, required this.telephone, required this.email});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'],
-      code: json['code'],
+      userName: json['userName'],
       firstName: json['firstName'],
       lastName: json['lastName'],
-      telephoneNumber: json['telephoneNumber'],
+      telephone: json['telephoneNumber'],
       email: json['email'],
-      address: json['address'],
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'code': code,
+    'userName': userName,
     'firstName': firstName,
     'lastName': lastName,
-    'telephoneNumber': telephoneNumber,
+    'telephone': telephone,
     'email': email,
-    'address': address,
   };
 
   @override
