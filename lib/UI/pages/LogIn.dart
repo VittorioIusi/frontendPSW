@@ -8,6 +8,7 @@ import '../../model/support/Constants.dart';
 import '../../model/support/LogInResult.dart';
 import '../widgets/buttons/ExpandableLoginButton.dart';
 import '../widgets/dialogs/MessageDialog.dart';
+import 'Layout.dart';
 
 
 class LogIn extends StatefulWidget {
@@ -79,7 +80,8 @@ class _LogInState extends State<LogIn> {
                           PageRouteBuilder(
                               opaque: false,
                               transitionDuration: Duration(milliseconds: 700),
-                              pageBuilder: (BuildContext context, _, __) => Home()
+                              //pageBuilder: (BuildContext context, _, __) => Home()
+                              pageBuilder: (BuildContext context, _, __) => Layout(title: Constants.APP_NAME)
                           ),
                         );
                       }

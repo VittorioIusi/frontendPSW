@@ -26,9 +26,12 @@ class Model {
       params["username"] = email;
       params["password"] = password;
       String result = await _restManager.makePostRequest(Constants.ADDRESS_AUTHENTICATION_SERVER, Constants.REQUEST_LOGIN, params, type:TypeHeader.urlencoded);
+      //print(result);
       //String result = await _restManager.makeGetRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_TOKEN,params,);
       _authenticationData = AuthenticationData.fromJson(jsonDecode(result));
+
       if ( _authenticationData!.hasError() ) {
+        print("ce un errore");
         if ( _authenticationData!.error == "Invalid user credentials" ) {
           return LogInResult.error_wrong_credentials;
         }
@@ -39,6 +42,8 @@ class Model {
           return LogInResult.error_unknown;
         }
       }
+      
+       
       _restManager.token = _authenticationData!.accessToken;
       Timer.periodic(Duration(seconds: (_authenticationData!.expiresIn - 50)), (Timer t) {
         _refreshToken();
@@ -46,12 +51,14 @@ class Model {
       return LogInResult.logged;
     }
     catch (e) {
+      print("Error during login: $e");
       return LogInResult.error_unknown;
     }
   }
 
   Future<bool> _refreshToken() async {
     try {
+      print("refresho");
       Map<String, String> params = Map();
       params["grant_type"] = "refresh_token";
       params["client_id"] = Constants.CLIENT_ID;

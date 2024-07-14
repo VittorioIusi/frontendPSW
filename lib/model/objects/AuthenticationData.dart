@@ -1,11 +1,11 @@
 class AuthenticationData {
   String accessToken;
   String refreshToken;
-  String error;
+  String? error;
   int expiresIn;
 
 
-  AuthenticationData({required this.accessToken, required this.refreshToken, required this.error, required this.expiresIn,});
+  AuthenticationData({required this.accessToken, required this.refreshToken,  this.error, required this.expiresIn,});
 
   factory AuthenticationData.fromJson(Map<String, dynamic> json) {
     return AuthenticationData(
