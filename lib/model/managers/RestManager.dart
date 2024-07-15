@@ -16,7 +16,7 @@ class RestManager {
   String? token;
 
 
-  Future<String> _makeRequest(String serverAddress, String servicePath, String method, TypeHeader type, {Map<String, String>? value, dynamic body}) async {
+  Future<String> _makeRequest(String serverAddress, String servicePath, String method, TypeHeader? type, {Map<String, String>? value, dynamic body}) async {
     Uri uri = Uri.http(serverAddress, servicePath, value);
     bool errorOccurred = false;
     while ( true ) {

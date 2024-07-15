@@ -16,6 +16,7 @@ class Constants {
   static final String REQUEST_LOGOUT = "/realms/" + REALM + "/protocol/openid-connect/logout";
 
   // requests
+  static final String CHECK = "/check/simple";
   static final String REQUEST_SEARCH_COURT_CITY_TYPE = "/courts/byCityType";
   static final String REQUEST_SEARCH_COURT_CITY= "/courts/byCity";
   static final String REQUEST_SEARCH_COURT_TYPE= "/courts/byType";
