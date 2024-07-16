@@ -100,18 +100,6 @@ class Model {
   }
 
 
-  Future<List<Product>?>? searchProduct(String name) async {
-    Map<String, String> params = Map();
-    params["name"] = name;
-    try {
-      return List<Product>.from(json.decode(await _restManager.makeGetRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_SEARCH_PRODUCTS, params)).map((i) => Product.fromJson(i)).toList());
-    }
-    catch (e) {
-      return null; // not the best solution
-    }
-  }
-
-
 
   Future<User?>? addUser(UserReq user) async {
     print("aggiungo");
@@ -194,9 +182,6 @@ class Model {
   Future<User?> getUtente() async {
     try {
       String r = await _restManager.makeGetRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_USER);
-      //print("stampa fatta da getUtent: "+ r);
-      //if(User.fromJson(jsonDecode(r))==null)
-      //  print("sto resitutendo null");
       return User.fromJson(jsonDecode(r));
       //return User.fromJson(jsonDecode(await _restManager.makeGetRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_USER)));
     }
@@ -210,131 +195,25 @@ class Model {
     Booking booking = Booking(
       data: dataDaPrenotare,
       purchaseTime: DateTime.now(),
+      prezzo:court.priceHourly,
       court: court
     );
 
     String bookingJson = booking.toString();
     //Map<String, dynamic> bookingJson = booking.toJson();
     //print("Booking JSON: $bookingJson");
-    String result = await _restManager.makePostRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_BOOK_COURT, json.decode(bookingJson));
-    print(result);
-    return result;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-  //BUONA
-  Future<String?> addBooking(String dataDaPrenotare, Court court) async {
     try {
-      // Fai la richiesta GET per ottenere l'utente
-      String r = await _restManager.makeGetRequest(
-          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_USER);
-      print("Response from server: $r");
-
-      Map<String, dynamic> userJson = jsonDecode(r);
-      //print("Decoded JSON: $userJson");
-
-      User u = User.fromJson(userJson);
-      //print("Utente ottenuto: ${u.userName}");
-
-      DateTime now = DateTime.now();
-      double prezzo = court.priceHourly;
-
-      Booking booking = Booking(
-        id: null,
-        data: dataDaPrenotare,
-        purchaseTime: now,
-        prezzo: prezzo,
-        buyer: u,
-        court: court,
-      );
-      //print("questa e la prenotazione");
-      //print(booking);
-
-      Map<String, dynamic> bookingJson = booking.toJson();
-      //print("Booking JSON: $bookingJson");
-
-      //print("provo a fare la post");
-      String result = await _restManager.makePostRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_BOOK_COURT, bookingJson);
-      //String result = await _restManager.makePostRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_BOOK_COURT, bookingJson);
-      print("finito la post");
+      String result = await _restManager.makePostRequest(
+          Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_BOOK_COURT,
+          json.decode(bookingJson));
       print(result);
       return result;
-
     }
     catch(e){
-      print("Errore durante la prenotazione: $e");
-      return null;
+    print("Errore durante la prenotazione: $e");
+    return null;
     }
   }//addBooking
-
-   */
-
-
-
-
-
-
-
-
-
-
-
-
-  //chicco
-/*
-  Future<String?> addBooking(String dataDaPrenotare, Court court) async {
-
-    User user= User(
-        userName: "flesca@gmail.com",
-        firstName: "sergio",
-        lastName: "flesca",
-        telephone: '35555',
-        email: "flesca@gmail.com"
-    );
-    Booking booking = Booking(id: null,data: dataDaPrenotare,purchaseTime: DateTime.now(),prezzo: court.priceHourly,buyer: user,court: court);
-
-
-    try {
-      // Converti l'oggetto booking in JSON
-      Map<String, dynamic> bookingJson = booking.toJson();
-      print("Booking JSON: $bookingJson");
-
-      print("provo a fare la post");
-      String result =  await _restManager.makePostRequest(Constants.ADDRESS_STORE_SERVER, Constants.REQUEST_BOOK_COURT, bookingJson);
-      print(result);
-      return result;
-    } catch (e) {
-      print("Errore prenotazione: $e");
-      return null;
-    }
-  }
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

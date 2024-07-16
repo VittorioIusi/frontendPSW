@@ -41,9 +41,9 @@ class RestManager {
         }
 
         // logging request details
-        print("Sending $method request to $uri");
-        print("Headers: $headers");
-        print("Body: $formattedBody");
+        //print("Sending $method request to $uri");
+        //print("Headers: $headers");
+        //print("Body: $formattedBody");
 
         // making request
         switch ( method ) {

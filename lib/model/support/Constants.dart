@@ -35,31 +35,4 @@ class Constants {
   static final String MESSAGE_CONNECTION_ERROR = "connection_error";
 
 
-
-
-
-
-
-
-  //da qui in giu sono di scala poi toglile
-
-
-  // requests
-  static final String REQUEST_SEARCH_PRODUCTS = "/products/search/by_name";
-
-
-  // states
-  static final String STATE_CLUB = "club";
-
-  // responses
-
-
-  // messages
-
-
-  // links
-  static final String LINK_RESET_PASSWORD = "***";
-  static final String LINK_FIRST_SETUP_PASSWORD = "***";
-
-
 }

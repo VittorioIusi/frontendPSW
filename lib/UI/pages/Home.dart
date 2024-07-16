@@ -22,7 +22,8 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Text(
-                AppLocalizations.of(context)!.translate("welcome").capitalize + "!",
+                //AppLocalizations.of(context)!.translate("welcome").capitalize + "!",
+                "Sito ufficiale prenotazioni \n    COMUNE DI ROVITO",
                 style: TextStyle(
                   fontSize: 50,
                   color: Theme.of(context).primaryColor,

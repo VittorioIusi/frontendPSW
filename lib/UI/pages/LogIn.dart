@@ -85,7 +85,7 @@ class _LogInState extends State<LogIn> {
                           ),
                         );
                       }
-                      else if ( result == LogInResult.error_wrong_credentials ) {
+                      else { //( result == LogInResult.error_wrong_credentials ) {
                         showDialog(
                           context: context,
                           builder: (context) => MessageDialog(
@@ -94,9 +94,11 @@ class _LogInState extends State<LogIn> {
                           ),
                         );
                       }
+                      /*
                       else if ( result == LogInResult.error_not_fully_setupped ) {
                         //await launch(Constants.LINK_FIRST_SETUP_PASSWORD);
                       }
+
                       else {
                         showDialog(
                           context: context,
@@ -106,6 +108,8 @@ class _LogInState extends State<LogIn> {
                           ),
                         );
                       }
+
+                       */
                     },
                   ),
                 ],
